@@ -1,0 +1,35 @@
+<div class="scheduling-card" role="region" aria-label="Apartment Tour Scheduling">
+    <h3>Schedule Your Apartment Tour</h3>
+    <div class="tour-details">
+      <img src="assets/apartment.jpg" alt="Apartment Image" />
+      @if (selectedDate()) {
+        <div>
+          <p><strong>Address:</strong> {{ selectedDate()?.address || 'Address not found' }}</p>
+          <p><strong>Your Rental Agent:</strong> {{ selectedDate()?.agent || 'Agent not found' }}</p>
+        </div>
+      } @else {
+        <div>
+          <p>No tour details available.</p>
+        </div>
+      }
+    </div>
+    <div class="schedule-section">
+      <p class="earliest-note">Earliest available - book your tour early to secure your spot!</p>
+      <div class="date-time">
+        <p><strong>Date:</strong> {{ selectedDate() ? (selectedDate()!.date | date:'EEEE, MMMM d, y') : 'Date not found' }}</p>
+        <p><strong>Time Zone:</strong> {{ timeZone() || 'Time zone not found' }}</p>
+        <div class="time-slots">
+          @for (time of availableTimes(); track time) {
+            <button [class.selected]="selectedTime() === time"
+                    (click)="selectTime(time)"
+                    [disabled]="!isTimeAvailable(time)"
+                    [attr.aria-label]="'Select ' + time + ' tour slot'">
+              {{ time }}
+            </button>
+          }
+        </div>
+      </div>
+      <button class="schedule-btn" (click)="bookTour()" [disabled]="!selectedTime()"
+              aria-label="Schedule tour now">Schedule Now</button>
+    </div>
+  </div>
