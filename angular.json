@@ -7,7 +7,7 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "less"
+          "style": "scss"
         }
       },
       "root": "",
@@ -30,6 +30,7 @@
               }
             ],
             "styles": [
+              "src/custom-theme.scss",
               "src/styles.less"
             ]
           },
@@ -93,6 +94,11 @@
           }
         }
       }
+    }
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "style": "scss"
     }
   },
   "cli": {

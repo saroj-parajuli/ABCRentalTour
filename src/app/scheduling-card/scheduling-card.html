@@ -1,35 +1,30 @@
-<div class="scheduling-card" role="region" aria-label="Apartment Tour Scheduling">
-    <h3>Schedule Your Apartment Tour</h3>
-    <div class="tour-details">
-      <img src="assets/apartment.jpg" alt="Apartment Image" />
-      @if (selectedDate()) {
-        <div>
-          <p><strong>Address:</strong> {{ selectedDate()?.address || 'Address not found' }}</p>
-          <p><strong>Your Rental Agent:</strong> {{ selectedDate()?.agent || 'Agent not found' }}</p>
+<mat-card class="scheduling-card" role="region" aria-label="Apartment Tour Scheduling">
+    <mat-card-content>
+        <mat-card-subtitle class="header-note">
+            <mat-icon style="background-color: #ffffff; color: #0288d1;">bolt</mat-icon>
+            Units are going fast — book your tour early to secure your spot!
+        </mat-card-subtitle>
+        <div class="date-picker">
+            <span class="earliest-date-label"><mat-icon class="double-arrow" >arrow_forward</mat-icon>Earliest Available</span>
+            <a matButton href="#" target="_blank">Show More Dates</a>
         </div>
-      } @else {
-        <div>
-          <p>No tour details available.</p>
+        <h3>{{ selectedDate() | date:'EEEE, MMMM d, y' }}</h3>
+        <p>Time Zone: {{ timeZone() }}</p>
+        <div class="date-time">
+            <div class="time-slots">
+                <ng-container *ngFor="let time of availableTimes()">
+                    <button mat-stroked-button [class.selected]="selectedTime() === time"
+                        (click)="selectTime(time)"
+                        [disabled]="!isTimeAvailable(time)"
+                        [attr.aria-label]="'Select ' + time + ' tour slot'">
+                        {{ time }}
+                    </button>
+                </ng-container>
+            </div>
         </div>
-      }
-    </div>
-    <div class="schedule-section">
-      <p class="earliest-note">Earliest available - book your tour early to secure your spot!</p>
-      <div class="date-time">
-        <p><strong>Date:</strong> {{ selectedDate() ? (selectedDate()!.date | date:'EEEE, MMMM d, y') : 'Date not found' }}</p>
-        <p><strong>Time Zone:</strong> {{ timeZone() || 'Time zone not found' }}</p>
-        <div class="time-slots">
-          @for (time of availableTimes(); track time) {
-            <button [class.selected]="selectedTime() === time"
-                    (click)="selectTime(time)"
-                    [disabled]="!isTimeAvailable(time)"
-                    [attr.aria-label]="'Select ' + time + ' tour slot'">
-              {{ time }}
-            </button>
-          }
-        </div>
-      </div>
-      <button class="schedule-btn" (click)="bookTour()" [disabled]="!selectedTime()"
-              aria-label="Schedule tour now">Schedule Now</button>
-    </div>
-  </div>
+        <button mat-raised-button color="primary" class="schedule-btn" (click)="bookTour()" [disabled]="!selectedTime()"
+              aria-label="Schedule tour now">
+            Schedule Now <mat-icon >arrow_forward</mat-icon>
+        </button>
+    </mat-card-content>
+</mat-card>

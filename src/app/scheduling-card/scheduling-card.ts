@@ -1,40 +1,30 @@
-import { Component, signal, effect } from '@angular/core';
-import { DatePipe } from '@angular/common';
-
-interface TourDate {
-  date: Date;
-  address: string;
-  agent: string;
-}
+import { CommonModule } from '@angular/common';
+import { Component, signal, effect, computed } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-scheduling-card',
   standalone: true,
   templateUrl: './scheduling-card.html',
-  styleUrls: ['./scheduling-card.less'],
-  imports: [DatePipe], // Added DatePipe to imports
+  styleUrls: ['./scheduling-card.scss'], // Changed from .less to .scss
+  imports: [MatCardModule, MatButtonModule, MatChipsModule, MatIconModule, CommonModule],
 })
 export class SchedulingCardComponent {
-  selectedDate = signal<TourDate | null>({
-    date: new Date('2025-09-30'),
-    address: '123 Main St, Pittsburgh, PA 12345',
-    agent: 'John Doe',
-  });
-  timeZone = signal('CDT');
-  availableTimes = signal(['9:00 AM', '10:00 AM', '11:00 AM', '11:30 AM', '2:00 PM', '3:00 PM', '5:00 PM']);
-  selectedTime = signal<string | null>(null);
-  bookedTimes = signal<string[]>([]);
+  readonly today = new Date();
+  readonly availableTimes = computed(() => this.generateAvailableTimes(this.selectedDate()));
+  readonly bookedTimes = signal<string[]>([]);
+  readonly selectedDate = signal<Date>(this.today);
+  readonly selectedTime = signal<string | null>(null);
+  readonly timeZone = signal<string>('EDT');
 
   constructor() {
-    // Effect for logging state changes
-    effect(() => {
-      if (this.selectedTime()) {
-        console.log(`Selected time updated to: ${this.selectedTime()} at ${new Date().toLocaleTimeString()}`);
-      }
+    effect(() => { // Runs when availableTimes or bookedTimes changes
+      const firstAvailable = this.availableTimes().find(time => this.isTimeAvailable(time));
+      this.selectedTime.set(firstAvailable || null);
     });
-
-    // Pre-select the first available time
-    this.selectedTime.set(this.availableTimes().find(time => this.isTimeAvailable(time)) || null);
   }
 
   selectTime(time: string) {
@@ -46,10 +36,31 @@ export class SchedulingCardComponent {
   }
 
   bookTour() {
-    if (this.selectedTime() && this.selectedDate()) {
-      console.log(`Tour booked for ${this.selectedDate()!.date} at ${this.selectedTime()} at ${new Date().toLocaleTimeString()}`);
+    if (this.selectedTime()) {
+      console.log(`Tour booked for ${this.selectedDate()} at ${this.selectedTime()} at ${new Date().toLocaleTimeString()}`);
       this.bookedTimes.update(times => [...times, this.selectedTime()!]);
       this.selectedTime.set(null);
     }
+  }
+
+  showMoreDates() {
+    console.log('Showing more dates...');
+  }
+
+  private generateAvailableTimes(date: Date): string[] {
+    const availableTimes: string[] = [];
+    const officeStartTime = new Date(date);
+    officeStartTime.setHours(9, 0, 0, 0);
+
+    const officeEndTime = new Date(date);
+    officeEndTime.setHours(17, 0, 0, 0);
+
+    const timeFormatter = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+    let time = new Date(officeStartTime);
+    while (time < officeEndTime) {
+      availableTimes.push(timeFormatter.format(time));
+      time.setMinutes(time.getMinutes() + 30);
+    }
+    return availableTimes;
   }
 }
