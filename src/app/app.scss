@@ -1,7 +1,17 @@
-.app-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+@import './scheduling-card/scheduling-card.scss';
 
+.app-container {
+    display: grid;
+    grid-template-columns: 2fr 3fr; // Creates a two-column layout with a 2:3 ratio
+    gap: 2rem; // Adds space between the columns
+    padding: 2rem;
+    box-sizing: border-box;
+    width: 100%;
+
+    // On smaller screens, stack the columns
+    @media (max-width: $desktop) {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+        gap: 1rem;
+    }
 }
