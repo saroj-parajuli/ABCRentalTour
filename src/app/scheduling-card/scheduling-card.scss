@@ -41,9 +41,7 @@ $desktop: 992px;
   -moz-osx-font-smoothing: grayscale;
 }
 
-mat-icon.outlined,
-i.material-icons-outlined,
-.material-icons-outlined {
+.material-icons-outlined { // Target the class used in HTML
   @include outlined-icon();
 }
 
@@ -54,17 +52,17 @@ $icon-warn: #ff9800;
 $icon-disabled: #9e9e9e;
 
 /* Example overrides for specific states */
-mat-icon.outlined.primary { @include outlined-icon($color: $icon-primary); }
-mat-icon.outlined.success { @include outlined-icon($color: $icon-success); }
-mat-icon.outlined.warn { @include outlined-icon($color: $icon-warn); }
-mat-icon.outlined.disabled,
-mat-icon.outlined[disabled] { @include outlined-icon($color: $icon-disabled); }
+.material-symbols-outlined.primary { @include outlined-icon($color: $icon-primary); }
+.material-symbols-outlined.success { @include outlined-icon($color: $icon-success); }
+.material-symbols-outlined.warn { @include outlined-icon($color: $icon-warn); }
+.material-symbols-outlined.disabled,
+.material-symbols-outlined[disabled] { @include outlined-icon($color: $icon-disabled); }
 
 /* Utility classes for quick size changes */
-mat-icon.outlined.small { @include outlined-icon($size: 18px); }
-mat-icon.outlined.medium { @include outlined-icon($size: 24px); }
-mat-icon.outlined.large { @include outlined-icon($size: 36px); }
-mat-icon.outlined.xlarge { @include outlined-icon($size: 48px); }
+.material-symbols-outlined.small { @include outlined-icon($size: 18px); }
+.material-symbols-outlined.medium { @include outlined-icon($size: 24px); }
+.material-symbols-outlined.large { @include outlined-icon($size: 36px); }
+.material-symbols-outlined.xlarge { @include outlined-icon($size: 48px); }
 
 .scheduling-card {
   border-top: 8px solid $border-color;
@@ -77,6 +75,7 @@ mat-icon.outlined.xlarge { @include outlined-icon($size: 48px); }
 
   mat-card-content {
     padding: 0;
+
     .header-note {
       display: flex;
       align-items: center;
@@ -85,15 +84,15 @@ mat-icon.outlined.xlarge { @include outlined-icon($size: 48px); }
       color: #757575;
       font-style: oblique;
       background-color: $background-action-color;
-      padding: .8rem 0;
+      padding: 0.8rem 0;
       margin-bottom: 1rem;
       gap: 0.5rem;
+
       mat-icon {
-        color: $primary-color;
-        font-size: 1.2rem;
+        color: $accent-color;
         border-radius: $radius;
         background-color: white;
-        padding: 0.2rem
+        padding: 0.2rem;
       }
     }
 
@@ -109,7 +108,7 @@ mat-icon.outlined.xlarge { @include outlined-icon($size: 48px); }
         display: flex;
         align-items: center;
 
-        mat-icon.outlined {
+        mat-icon {
           @include outlined-icon($color: $primary-color);
           margin-right: 0.5rem;
         }
@@ -203,7 +202,7 @@ mat-icon.outlined.xlarge { @include outlined-icon($size: 48px); }
           color: #ffffff;
         }
 
-        mat-icon.outlined {
+        mat-icon {
           @include outlined-icon($color: #ffffff);
           margin-left: 10px;
           transition: transform 0.3s ease;
@@ -212,7 +211,7 @@ mat-icon.outlined.xlarge { @include outlined-icon($size: 48px); }
         &:hover {
           background: linear-gradient(to right, $accent-color, $primary-color);
 
-          mat-icon.outlined {
+          mat-icon {
             transform: translateX(6px);
             color: #ffffff;
           }
@@ -223,7 +222,7 @@ mat-icon.outlined.xlarge { @include outlined-icon($size: 48px); }
           color: #9e9e9e;
           cursor: not-allowed;
 
-          mat-icon.outlined {
+          mat-icon {
             color: #9e9e9e;
           }
         }
