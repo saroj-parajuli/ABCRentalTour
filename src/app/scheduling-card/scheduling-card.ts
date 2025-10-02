@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
   imports: [MatCardModule, MatButtonModule, MatChipsModule, MatIconModule, CommonModule],
 })
 export class SchedulingCardComponent {
-  readonly today = new Date('2025-10-01'); // Current date: October 1, 2025
+  readonly today = new Date();
   readonly availableTimes = computed(() => this.generateAvailableTimes(this.selectedDate()));
   readonly bookedTimes = signal<string[]>([]);
   readonly selectableDates = signal<Date[]>([]);
