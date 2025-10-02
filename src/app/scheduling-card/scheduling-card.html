@@ -7,9 +7,12 @@
     <div style="padding: 1rem;">
       <div class="date-picker">
         <span class="earliest-date-label">
-          <mat-icon class="material-icons-outlined" aria-hidden="true">arrow_forward</mat-icon>
+          <span class="arrow-stack">
+              <mat-icon class="arrow-base" aria-hidden="true">arrow_forward</mat-icon>
+              <mat-icon class="arrow-tip" aria-hidden="true">arrow_forward_ios</mat-icon>
+          </span>
           Earliest Available
-        </span>
+      </span>
       </div>
       <div class="date_zone">
         <h3>{{ selectedDate() | date:'EEEE, MMMM d, y' }}</h3>
