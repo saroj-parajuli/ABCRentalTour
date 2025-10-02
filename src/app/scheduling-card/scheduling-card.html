@@ -1,19 +1,19 @@
 <mat-card class="scheduling-card" role="region" aria-label="Apartment Tour Scheduling">
   <mat-card-content>
     <mat-card-subtitle class="header-note">
-      <mat-icon class="material-symbols-outlined" aria-hidden="true">bolt</mat-icon>
+      <mat-icon class="outlined primary" aria-hidden="true">bolt</mat-icon>
       Units are going fast — book your tour early to secure your spot!
     </mat-card-subtitle>
     <div class="date-picker">
       <span class="earliest-date-label">
-        <mat-icon class="double-arrow material-icons-outlined" aria-hidden="true">arrow_forward</mat-icon>
+        <mat-icon class="outlined primary double-arrow" aria-hidden="true">arrow_forward</mat-icon>
         Earliest Available
       </span>
-     
+      <a mat-button class="show-more" (click)="showMoreDates()">Show More Dates</a>
     </div>
     <div class="date_zone">
-    <h3>{{ selectedDate() | date:'EEEE, MMMM d, y' }}</h3>  
-    <a mat-button href="#" target="_blank" (click)="showMoreDates()">Show More Dates</a>
+      <h3>{{ selectedDate() | date:'EEEE, MMMM d, y' }}</h3>
+      <a mat-button class="show-more" (click)="showMoreDates()">Show More Dates</a>
     </div>
     <p class="time-zone">Time Zone: {{ timeZone() }}</p>
     <div class="time-slots">
@@ -28,12 +28,10 @@
       </ng-container>
     </div>
     <div class="schedule-btn-container">
-    <button class="schedule-btn" (click)="bookTour()" [disabled]="!selectedTime()" aria-label="Schedule tour now">
-      <span class="schedule-btn-text">SCHEDULE NOW</span>
-      <span class="material-symbols-outlined arrow-icon">
-          arrow_forward
-      </span>
-  </button>
-  </div>
+      <button class="schedule-btn" (click)="bookTour()" [disabled]="!selectedTime()" aria-label="Schedule tour now">
+        <span class="schedule-btn-text">SCHEDULE NOW</span>
+        <mat-icon class="outlined" aria-hidden="true">arrow_forward</mat-icon>
+      </button>
+    </div>
   </mat-card-content>
 </mat-card>
