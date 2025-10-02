@@ -1,0 +1,323 @@
+/* Variables for consistent styling */
+$border-color: #139cdf;
+$primary-color: #0288d1;
+$accent-color: #2e7d32;
+$disabled-color: #f5f5f5;
+$background-color: #f5f5f5;
+$background-hover-color: #eff7fe;
+$background-action-color: #e6f3fa;
+$card-border-radius: 8px;
+$padding: 1rem;
+$max-width: 768px;
+$radius: 50px;
+$green-indicator: #77e38e; 
+
+/* Breakpoints */
+$mobile: 375px;
+$tablet: 768px;
+$desktop: 992px;
+
+/* Mixin for button styling */
+@mixin button-style {
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #191919;
+  background-color: $disabled-color;
+  border: 1px solid #b0bec5;
+  min-width: 120px;
+}
+
+/* Outlined Icon Global Styles */
+@mixin outlined-icon($size: 24px, $color: inherit, $weight: 400) {
+  font-family: 'Material Icons Outlined' !important;
+  font-weight: $weight;
+  font-size: $size;
+  color: $color;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.material-icons-outlined { // Target the class used in HTML
+  @include outlined-icon();
+}
+
+/* Theme-aware colour variables */
+$icon-primary: $primary-color;
+$icon-success: $accent-color;
+$icon-warn: #ff9800;
+$icon-disabled: #9e9e9e;
+
+/* Example overrides for specific states */
+.material-symbols-outlined.primary { @include outlined-icon($color: $icon-primary); }
+.material-symbols-outlined.success { @include outlined-icon($color: $icon-success); }
+.material-symbols-outlined.warn { @include outlined-icon($color: $icon-warn); }
+.material-symbols-outlined.disabled,
+.material-symbols-outlined[disabled] { @include outlined-icon($color: $icon-disabled); }
+
+/* Utility classes for quick size changes */
+.material-symbols-outlined.small { @include outlined-icon($size: 18px); }
+.material-symbols-outlined.medium { @include outlined-icon($size: 24px); }
+.material-symbols-outlined.large { @include outlined-icon($size: 36px); }
+.material-symbols-outlined.xlarge { @include outlined-icon($size: 48px); }
+
+.scheduling-card {
+  border-top: 8px solid $border-color;
+  border-radius: $card-border-radius;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: $max-width;
+  padding: 0;
+  margin-left: 40%;
+
+  mat-card-content {
+    padding: 0;
+
+    .header-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8em;
+      color: #757575;
+      font-style: oblique;
+      background-color: $background-action-color;
+      padding: 0.8rem 0;
+      margin-bottom: 1rem;
+      gap: 0.5rem;
+
+      mat-icon {
+        color: $primary-color;
+        border-radius: $radius;
+        background-color: white;
+        padding: 0.2rem;
+      }
+    }
+
+    .date-picker {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 0 $padding;
+      align-items: center;
+
+
+      .earliest-date-label {
+          display: flex;
+          align-items: center;
+          gap: 5px; /* Space between arrow and text */
+      }
+      
+      .arrow-stack {
+          position: relative;
+          width: 20px; /* Define space for the stacked arrow */
+          height: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
+      
+      .arrow-base,
+      .arrow-tip {
+          position: absolute;
+          color: $green-indicator;
+          
+          
+          // Ensure both are outlined
+          font-variation-settings: 'FILL' 0, 'wght' 400; 
+      }
+      
+      /* Adjust the second arrow's position to look like a tip or a double arrow */
+      .arrow-tip {
+          transform: translateX(7px); 
+          font-size: 20px; 
+          
+          font-variation-settings: 'FILL' 0, 'wght' 700; 
+      }
+      
+      .arrow-indicator-single {
+          color: $green-indicator;
+          font-size: 18px;
+          
+          font-variation-settings: 'FILL' 0, 'wght' 600; 
+      }
+        mat-icon {
+          @include outlined-icon($color: $primary-color);
+          margin-right: 0.5rem;
+        }
+      }
+
+      .show-more {
+        @include button-style;
+        color: $primary-color;
+        text-transform: none;
+        font-size: 0.8em;
+        border: 0;
+        background-color: inherit;
+      }
+    }
+
+    .date_zone {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 0 $padding;
+      align-items: center;
+
+      h3 {
+        font-size: 1.3em;
+        color: #333;
+        margin: 0;
+      }
+
+      .show-more {
+        color: $primary-color;
+        text-decoration: none;
+        font-size: 0.8em;
+      }
+    }
+
+    .time-zone {
+      margin: 0;
+      padding: 0 0 $padding;
+      color: #757575;
+      font-size: 0.9em;
+    }
+
+    .time-slots {
+      padding: 0 0 $padding;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+
+      button {
+        @include button-style;
+        border: 1px solid #b0bec5;
+        font-size: 0.9em;
+        padding: 6px 12px;
+
+        &.selected {
+          background: #e4f2fd;
+          border-color: $primary-color;
+          color: $primary-color;
+        }
+
+        &:disabled {
+          background: $disabled-color;
+          color: #9e9e9e;
+          cursor: not-allowed;
+        }
+
+        &:hover:not(:disabled) {
+          background: $background-hover-color;
+          color: $primary-color;
+        }
+      }
+    }
+
+    .schedule-btn-container {
+      display: flex;
+      justify-content: flex-end;
+      padding: 0;
+
+      .schedule-btn {
+        @include button-style;
+        background: linear-gradient(to right, $primary-color, $accent-color);
+        border-radius: $radius;
+        min-width: auto;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+        margin: 1rem 0;
+
+        .schedule-btn-text {
+          font-size: 1.1em;
+          color: #ffffff;
+        }
+
+        mat-icon {
+          @include outlined-icon($color: #ffffff);
+          margin-left: 10px;
+          transition: transform 0.3s ease;
+        }
+
+        &:hover {
+          background: linear-gradient(to right, $accent-color, $primary-color);
+
+          mat-icon {
+            transform: translateX(6px);
+            color: #ffffff;
+          }
+        }
+
+        &:disabled {
+          background: $disabled-color;
+          color: #9e9e9e;
+          cursor: not-allowed;
+
+          mat-icon {
+            color: #9e9e9e;
+          }
+        }
+      }
+    }
+  }
+
+
+/* Media Queries for Responsiveness */
+@media (max-width: $mobile) {
+  .scheduling-card {
+    width: $mobile;
+    padding: 0.5rem;
+  }
+
+  .date-picker,
+  .date_zone,
+  .time-zone,
+  .time-slots,
+  .schedule-btn-container {
+    padding: 0 0 0.5rem;
+  }
+
+  .schedule-btn-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    .schedule-btn {
+      width: 100%;
+      .schedule-btn-text {
+        font-size: 1em;
+      }
+    }
+  }
+
+  .time-slots {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: $tablet) and (max-width: $desktop) {
+  .scheduling-card {
+    width: $tablet;
+  }
+
+  .schedule-btn-container {
+    justify-content: flex-end;
+  }
+}
+
+@media (min-width: $desktop) {
+  .scheduling-card {
+    width: $desktop;
+  }
+
+  .schedule-btn-container {
+    justify-content: flex-end;
+  }
+}
