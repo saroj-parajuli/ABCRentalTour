@@ -1,31 +1,39 @@
 <mat-card class="scheduling-card" role="region" aria-label="Apartment Tour Scheduling">
   <mat-card-content>
     <mat-card-subtitle class="header-note">
-      <mat-icon class="material-symbols-outlined" [ariaHidden]="true">bolt</mat-icon>
+      <mat-icon class="material-symbols-outlined" aria-hidden="true">bolt</mat-icon>
       Units are going fast — book your tour early to secure your spot!
     </mat-card-subtitle>
     <div class="date-picker">
       <span class="earliest-date-label">
-        <mat-icon class="double-arrow material-icons-outlined">arrow_forward</mat-icon>Earliest Available
+        <mat-icon class="double-arrow material-icons-outlined" aria-hidden="true">arrow_forward</mat-icon>
+        Earliest Available
       </span>
-      <a mat-button href="#" target="_blank" (click)="showMoreDates()">Show More Dates</a>
+     
     </div>
-    <h3>{{ selectedDate() | date:'EEEE, MMMM d, y' }}</h3>
-    <p>Time Zone: {{ timeZone() }}</p>
-      <div class="time-slots">
-        <ng-container *ngFor="let time of availableTimes()">
-          <button mat-stroked-button 
-                  [class.selected]="selectedTime() === time"
-                  (click)="selectTime(time)"
-                  [disabled]="!isTimeAvailable(time)"
-                  [attr.aria-label]="'Select ' + time + ' tour slot'">
-            {{ time }}
-          </button>
-        </ng-container>
-      </div>
-    <button mat-raised-button color="primary" class="schedule-btn" (click)="bookTour()" [disabled]="!selectedTime()"
-            aria-label="Schedule tour now">
-      Schedule Now <mat-icon>arrow_forward</mat-icon>
-    </button>
+    <div class="date_zone">
+    <h3>{{ selectedDate() | date:'EEEE, MMMM d, y' }}</h3>  
+    <a mat-button href="#" target="_blank" (click)="showMoreDates()">Show More Dates</a>
+    </div>
+    <p class="time-zone">Time Zone: {{ timeZone() }}</p>
+    <div class="time-slots">
+      <ng-container *ngFor="let time of availableTimes()">
+        <button mat-stroked-button
+                [class.selected]="selectedTime() === time"
+                (click)="selectTime(time)"
+                [disabled]="!isTimeAvailable(time)"
+                [attr.aria-label]="'Select ' + time + ' tour slot'">
+          {{ time }}
+        </button>
+      </ng-container>
+    </div>
+    <div class="schedule-btn-container">
+    <button class="schedule-btn" (click)="bookTour()" [disabled]="!selectedTime()" aria-label="Schedule tour now">
+      <span class="schedule-btn-text">SCHEDULE NOW</span>
+      <span class="material-symbols-outlined arrow-icon">
+          arrow_forward
+      </span>
+  </button>
+  </div>
   </mat-card-content>
 </mat-card>
