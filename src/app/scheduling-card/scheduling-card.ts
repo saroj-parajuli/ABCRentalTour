@@ -44,6 +44,7 @@ export class SchedulingCardComponent {
 
   bookTour() {
     if (this.selectedTime()) {
+      alert(`Tour booked for ${this.selectedDate()} at ${this.selectedTime()} at ${new Date().toLocaleTimeString()}`);
       console.log(`Tour booked for ${this.selectedDate()} at ${this.selectedTime()} at ${new Date().toLocaleTimeString()}`);
       this.bookedTimes.update(times => [...times, this.selectedTime()!]);
       this.selectedTime.set(null);
