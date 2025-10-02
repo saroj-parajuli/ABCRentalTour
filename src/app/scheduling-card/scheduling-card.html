@@ -4,12 +4,12 @@
       <mat-icon class="outlined primary" aria-hidden="true">bolt</mat-icon>
       Units are going fast — book your tour early to secure your spot!
     </mat-card-subtitle>
+    <div style="padding: 1rem;">
     <div class="date-picker">
       <span class="earliest-date-label">
-        <mat-icon class="outlined primary double-arrow" aria-hidden="true">arrow_forward</mat-icon>
+        <mat-icon class="outlined primary" aria-hidden="true">arrow_forward</mat-icon>
         Earliest Available
       </span>
-      <a mat-button class="show-more" (click)="showMoreDates()">Show More Dates</a>
     </div>
     <div class="date_zone">
       <h3>{{ selectedDate() | date:'EEEE, MMMM d, y' }}</h3>
@@ -32,6 +32,7 @@
         <span class="schedule-btn-text">SCHEDULE NOW</span>
         <mat-icon class="outlined" aria-hidden="true">arrow_forward</mat-icon>
       </button>
+    </div>
     </div>
   </mat-card-content>
 </mat-card>
