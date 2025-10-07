@@ -17,6 +17,15 @@
       <div class="date_zone">
         <h3>{{ selectedDate() | date:'EEEE, MMMM d, y' }}</h3>
         <a mat-button class="show-more" (click)="showMoreDates()">Show More Dates</a>
+        <div class="date-options">
+          <button mat-stroked-button
+                  *ngFor="let date of selectableDates()"
+                  [class.selected]="selectedDate() === date"
+                  (click)="selectDate(date)"
+                  [attr.aria-label]="'Select ' + (date | date:'MMM d, y')">
+            {{ date | date:'MMM d' }}
+          </button>
+        </div>
       </div>
       <p class="time-zone">Time Zone: {{ timeZone() }}</p>
       <div class="time-slots">

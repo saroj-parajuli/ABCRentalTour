@@ -1,4 +1,4 @@
-@use './scheduling-card/scheduling-card.scss' as scheduling;
+@import './scheduling-card/scheduling-card.scss';
 
 .app-container {
     display: grid;
@@ -9,7 +9,7 @@
     width: 100%;
 
     // On smaller screens, stack the columns
-    @media (max-width: scheduling.$desktop) {
+    @media (max-width: $desktop) {
         grid-template-columns: 1fr;
         padding: 1rem;
         gap: 1rem;

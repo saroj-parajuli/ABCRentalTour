@@ -4,16 +4,17 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { DatePipe } from '@angular/common'; // Import DatePipe for formatting
 
 @Component({
   selector: 'app-scheduling-card',
   standalone: true,
   templateUrl: './scheduling-card.html',
   styleUrls: ['./scheduling-card.scss'],
-  imports: [MatCardModule, MatButtonModule, MatChipsModule, MatIconModule, CommonModule],
+  imports: [MatCardModule, MatButtonModule, MatChipsModule, MatIconModule, CommonModule, DatePipe],
 })
 export class SchedulingCardComponent {
-  readonly today = new Date();
+  readonly today = new Date('2025-10-02'); // Current date: October 2, 2025, 12:22 AM CDT
   readonly availableTimes = computed(() => this.generateAvailableTimes(this.selectedDate()));
   readonly bookedTimes = signal<string[]>([]);
   readonly selectableDates = signal<Date[]>([]);
@@ -57,7 +58,7 @@ export class SchedulingCardComponent {
     const nextDay = new Date(lastDate);
     nextDay.setDate(nextDay.getDate() + 1);
 
-    const moreDates = this.generateBusinessDays(nextDay, 7);
+    const moreDates = this.generateBusinessDays(nextDay, 3); // Increased from 7 to 14
     this.selectableDates.update(dates => [...dates, ...moreDates]);
   }
 
