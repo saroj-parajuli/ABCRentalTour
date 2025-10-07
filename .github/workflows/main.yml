@@ -1,0 +1,35 @@
+name: Build and Deploy
+on:
+  push:
+    branches:
+      - main
+permissions:
+  contents: write 
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          cache: 'npm'
+
+      - name: Install and build dependencies
+        run: |
+          npm ci --legacy-peer-deps
+          npm run build -- --base-href /${{ github.event.repository.name }}/
+
+      - name: Deploy application
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: dist
+          clean: true
