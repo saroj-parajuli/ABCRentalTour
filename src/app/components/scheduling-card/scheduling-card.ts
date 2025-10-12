@@ -14,13 +14,13 @@ import { DatePipe } from '@angular/common'; // Import DatePipe for formatting
   imports: [MatCardModule, MatButtonModule, MatChipsModule, MatIconModule, CommonModule, DatePipe],
 })
 export class SchedulingCardComponent {
-  readonly today = new Date('2025-10-02'); // Current date: October 2, 2025, 12:22 AM CDT
+  readonly today = new Date(); 
   readonly availableTimes = computed(() => this.generateAvailableTimes(this.selectedDate()));
   readonly bookedTimes = signal<string[]>([]);
   readonly selectableDates = signal<Date[]>([]);
   readonly selectedDate = signal<Date>(this.today);
   readonly selectedTime = signal<string | null>(null);
-  readonly timeZone = signal<string>('CDT'); // Current time zone
+  readonly timeZone = signal<string>('CDT');
 
   constructor() {
     this.selectableDates.set(this.generateBusinessDays(this.today, 7));
