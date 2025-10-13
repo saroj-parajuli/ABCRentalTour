@@ -1,28 +1,28 @@
-@use '../components/scheduling-card/scheduling-card.scss' as scheduling;
-
 .main-container {
     display: flex;
     flex-direction: column;
     width: 100%;
-    background-color: #ccc; 
+    background-color: #cccccc;
     min-height: 100vh;
 }
 
 .app-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    padding: 1rem;
-    box-sizing: border-box;
-    width: 100%;
-
-    @media (max-width: scheduling.$mobile) {
-        gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
         padding: 0.5rem;
+    box-sizing: border-box;
+    .left-content,
+    .right-content {
+        flex-grow: 1;
+        padding: 1rem;
+        box-sizing: border-box;
+        background-color: #d1d1d1;
     }
-
-    @media (min-width: scheduling.$desktop) {
-        grid-template-columns: minmax(280px, 2fr) minmax(400px, 3fr);
+  
+    @media (min-width: 768px) {
+        flex-direction: row;
+        justify-content: space-between;
         gap: 2rem;
         padding: 2rem;
     }
