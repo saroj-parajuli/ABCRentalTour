@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ABCRental": {
+    "abcrental": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -15,8 +15,9 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular/build:application",
+          "builder": "@angular-architects/module-federation:build",
           "options": {
+            "webpackConfig": "webpack.config.js",
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
@@ -48,7 +49,8 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "webpackConfig": "webpack.prod.config.js"
             },
             "development": {
               "optimization": false,
@@ -59,13 +61,13 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular/build:dev-server",
+          "builder": "@angular-architects/module-federation:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "ABCRental:build:production"
+              "buildTarget": "abcrental:build:production"
             },
             "development": {
-              "buildTarget": "ABCRental:build:development"
+              "buildTarget": "abcrental:build:development"
             }
           },
           "defaultConfiguration": "development"

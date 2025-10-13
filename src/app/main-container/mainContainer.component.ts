@@ -7,16 +7,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 @Component({
-  selector: 'app-container',
+  selector: 'main-container',
   standalone: true,
   imports: [RouterOutlet, HeaderComponent, FooterComponent,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
     MatCardModule],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  templateUrl: './mainContainer.component.html',
+  styleUrls: ['./mainContainer.component.scss']
 })
-export class AppComponent {
+export class MainContainer {
   protected readonly title = signal('ABCRental');
 }
