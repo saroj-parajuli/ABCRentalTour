@@ -73,9 +73,6 @@ $icon-disabled: #9e9e9e;
   width: 100%;
   max-width: $max-width;
   padding: 0;
-  @media (min-width: $desktop) {
-    margin-left: 33%;
-  }
 
   mat-card-content {
     padding: 0;
