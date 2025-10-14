@@ -1,6 +1,5 @@
 @use '@angular/material' as mat;
 
-$mobile-breakpoint: 600px; 
 
 .main-header {
   height: 64px;
@@ -14,7 +13,7 @@ $mobile-breakpoint: 600px;
   .spacer {
     flex: 1 1 auto;
   }
-  @media (max-width: $mobile-breakpoint) {
+  @media (max-width: 768px) {
     .hide-on-mobile {
       display: none;
     }
