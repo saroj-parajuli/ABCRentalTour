@@ -4,14 +4,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { DatePipe } from '@angular/common'; // Import DatePipe for formatting
+import { DatePipe } from '@angular/common';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-scheduling-card',
   standalone: true,
   templateUrl: './scheduling-card.html',
   styleUrls: ['./scheduling-card.scss'],
-  imports: [MatCardModule, MatButtonModule, MatChipsModule, MatIconModule, CommonModule, DatePipe],
+  imports: [MatCardModule, MatButtonModule, MatChipsModule, MatIconModule, CommonModule, DatePipe, MatSnackBarModule]
 })
 export class SchedulingCardComponent {
   readonly today = new Date(); 
@@ -22,7 +23,7 @@ export class SchedulingCardComponent {
   readonly selectedTime = signal<string | null>(null);
   readonly timeZone = signal<string>('CDT');
 
-  constructor() {
+  constructor(private _snackBar: MatSnackBar) {
     this.selectableDates.set(this.generateBusinessDays(this.today, 7));
 
     effect(() => {
@@ -45,10 +46,11 @@ export class SchedulingCardComponent {
 
   bookTour() {
     if (this.selectedTime()) {
-      alert(`Tour booked for ${this.selectedDate()} at ${this.selectedTime()} at ${new Date().toLocaleTimeString()}`);
-      console.log(`Tour booked for ${this.selectedDate()} at ${this.selectedTime()} at ${new Date().toLocaleTimeString()}`);
+      const message = `Tour booked for ${this.selectedDate().toLocaleDateString()} at ${this.selectedTime()}`;
+      this._snackBar.open(message, 'Dismiss', {
+        duration: 3000,
+      });
       this.bookedTimes.update((times:string[]) => [...times, this.selectedTime()!]);
-      this.selectedTime.set(null);
     }
   }
 
