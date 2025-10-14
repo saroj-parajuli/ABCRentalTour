@@ -1,18 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SchedulingCardComponent } from './scheduling-card';
 
-import { SchedulingCard } from './scheduling-card';
 
 describe('SchedulingCard', () => {
-  let component: SchedulingCard;
-  let fixture: ComponentFixture<SchedulingCard>;
+  let component: SchedulingCardComponent;
+  let fixture: ComponentFixture<SchedulingCardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SchedulingCard]
+      imports: [SchedulingCardComponent, NoopAnimationsModule]
+
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SchedulingCard);
+    fixture = TestBed.createComponent(SchedulingCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

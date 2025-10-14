@@ -1,0 +1,22 @@
+<div class="main-container">
+  <app-header-component />
+  <div class="app-container">
+      <mat-card class="left-content">
+        <mat-card-title >
+          <!--left Content Title -->
+        </mat-card-title>
+        <mat-card-content>
+          <p> left content goes here</p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="right-content">
+        <mat-card-title>
+          <!--right Content Title -->
+        </mat-card-title>
+        <mat-card-content >
+          <router-outlet></router-outlet>
+        </mat-card-content>
+      </mat-card>
+  </div>
+  <app-footer-component></app-footer-component>
+</div>

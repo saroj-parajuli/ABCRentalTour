@@ -11,9 +11,6 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./components/scheduling-card/scheduling-card').then(
         (m) => m.SchedulingCardComponent
-      ).catch((error) => {
-        console.error(`Error loading SchedulingCardComponent: ${error}`);
-        return Promise.reject(error);
-      }),
+      ),
   },
 ];
