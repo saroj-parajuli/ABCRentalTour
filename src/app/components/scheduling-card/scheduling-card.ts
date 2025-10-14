@@ -51,6 +51,7 @@ export class SchedulingCardComponent {
         duration: 3000,
       });
       this.bookedTimes.update((times:string[]) => [...times, this.selectedTime()!]);
+      this.selectedTime.set(null);
     }
   }
 
