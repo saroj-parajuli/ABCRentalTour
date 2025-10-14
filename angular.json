@@ -15,25 +15,18 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-architects/module-federation:build",
+          "builder": "ngx-build-plus:browser",
           "options": {
-            "webpackConfig": "webpack.config.js",
-            "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "outputPath": "dist/abcrental",
+            "index": "src/index.html",
+            "extraWebpackConfig": "webpack.config.js",
+            "main": "src/main.ts",
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
-            "styles": [
-              "src/custom-theme.scss",
-              "src/styles.scss"
-            ]
+            "assets": [{ "glob": "**/*", "input": "public" }],
+            "styles": ["src/custom-theme.scss", "src/styles.scss"],
+            "commonChunk": false
           },
           "configurations": {
             "production": {
@@ -50,7 +43,7 @@
                 }
               ],
               "outputHashing": "all",
-              "webpackConfig": "webpack.prod.config.js"
+              "extraWebpackConfig": "webpack.prod.config.js"
             },
             "development": {
               "optimization": false,
@@ -61,10 +54,14 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-architects/module-federation:dev-server",
+          "builder": "ngx-build-plus:dev-server",
+          "options": {
+            "extraWebpackConfig": "webpack.config.js"
+          },
           "configurations": {
             "production": {
-              "buildTarget": "abcrental:build:production"
+              "buildTarget": "abcrental:build:production",
+              "extraWebpackConfig": "webpack.prod.config.js"
             },
             "development": {
               "buildTarget": "abcrental:build:development"
@@ -78,21 +75,11 @@
         "test": {
           "builder": "@angular/build:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
-            "styles": [
-              "src/styles.scss"
-            ]
+            "assets": [{ "glob": "**/*", "input": "public" }],
+            "styles": ["src/styles.scss"]
           }
         }
       }
@@ -106,4 +93,4 @@
   "cli": {
     "analytics": false
   }
-}
+
