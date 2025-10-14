@@ -26,7 +26,7 @@ export class SchedulingCardComponent {
     this.selectableDates.set(this.generateBusinessDays(this.today, 7));
 
     effect(() => {
-      const firstAvailable = this.availableTimes().find(time => this.isTimeAvailable(time));
+      const firstAvailable = this.availableTimes().find((time:string) => this.isTimeAvailable(time));
       this.selectedTime.set(firstAvailable || null);
     });
   }
@@ -47,7 +47,7 @@ export class SchedulingCardComponent {
     if (this.selectedTime()) {
       alert(`Tour booked for ${this.selectedDate()} at ${this.selectedTime()} at ${new Date().toLocaleTimeString()}`);
       console.log(`Tour booked for ${this.selectedDate()} at ${this.selectedTime()} at ${new Date().toLocaleTimeString()}`);
-      this.bookedTimes.update(times => [...times, this.selectedTime()!]);
+      this.bookedTimes.update((times:string[]) => [...times, this.selectedTime()!]);
       this.selectedTime.set(null);
     }
   }
@@ -59,7 +59,7 @@ export class SchedulingCardComponent {
     nextDay.setDate(nextDay.getDate() + 1);
 
     const moreDates = this.generateBusinessDays(nextDay, 3); // Increased from 7 to 14
-    this.selectableDates.update(dates => [...dates, ...moreDates]);
+    this.selectableDates.update((dates:Date[]) => [...dates, ...moreDates]);
   }
 
   private generateBusinessDays(startDate: Date, count: number): Date[] {
