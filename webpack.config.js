@@ -2,10 +2,8 @@ const { shareAll, withModuleFederationPlugin } = require('@angular-architects/mo
 
 module.exports = withModuleFederationPlugin({
 
-  name: 'abcrental',
+  remotes: {
 
-  exposes: {
-    './SchedulingModule': './src/app/components/scheduling-card/scheduling.module.ts'
   },
 
   shared: {
