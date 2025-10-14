@@ -12,14 +12,5 @@
 </head>
 <body>
   <app-root></app-root>
-  <script>
-    // Fallback to log if outlined icons fail to load
-    setTimeout(() => { // Delay to allow stylesheet to load
-      if (!document.styleSheets.some(sheet => sheet.href?.includes('Material+Icons+Outlined')) || 
-          window.getComputedStyle(document.createElement('div')).getPropertyValue('--material-icons-outlined') === '') {
-        console.warn('Material Icons Outlined stylesheet may not be loading correctly. Check network, CSP, or try a hard reload.');
-      }
-    }, 1000);
-  </script>
 </body>
 </html>

@@ -1,0 +1,49 @@
+@use '@angular/material' as mat;
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 95%;
+    margin: 10px 0;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
+
+    a,
+    p {
+        font-size: 15px;
+        color: var(--mat-sys-on-surface);
+    }
+
+    .footer-links {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 1rem;
+        font-weight: 700;
+
+        @media (max-width: 768px) {
+            flex-direction: column;
+        }
+    }
+
+    .footer-links a {
+        transition: color 0.15s ease;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .footer-links a:hover,
+    .footer-links a:focus-visible {
+        color: mat.m2-get-color-from-palette(mat.$m2-indigo-palette, 500);
+        outline: none;
+    }
+}

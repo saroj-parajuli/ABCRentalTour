@@ -1,0 +1,30 @@
+@use '@angular/material' as mat;
+
+
+.main-header {
+  height: 64px;
+  padding: 0 16px; 
+  
+  .app-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+  @media (max-width: 768px) {
+    .hide-on-mobile {
+      display: none;
+    }
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .app-title {
+      margin-left: auto;
+      margin-right: auto; 
+    }
+  }
+}

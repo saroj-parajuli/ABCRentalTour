@@ -4,29 +4,30 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { DatePipe } from '@angular/common'; // Import DatePipe for formatting
+import { DatePipe } from '@angular/common';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-scheduling-card',
   standalone: true,
   templateUrl: './scheduling-card.html',
   styleUrls: ['./scheduling-card.scss'],
-  imports: [MatCardModule, MatButtonModule, MatChipsModule, MatIconModule, CommonModule, DatePipe],
+  imports: [MatCardModule, MatButtonModule, MatChipsModule, MatIconModule, CommonModule, DatePipe, MatSnackBarModule]
 })
 export class SchedulingCardComponent {
-  readonly today = new Date('2025-10-02'); // Current date: October 2, 2025, 12:22 AM CDT
+  readonly today = new Date(); 
   readonly availableTimes = computed(() => this.generateAvailableTimes(this.selectedDate()));
   readonly bookedTimes = signal<string[]>([]);
   readonly selectableDates = signal<Date[]>([]);
   readonly selectedDate = signal<Date>(this.today);
   readonly selectedTime = signal<string | null>(null);
-  readonly timeZone = signal<string>('CDT'); // Current time zone
+  readonly timeZone = signal<string>('CDT');
 
-  constructor() {
+  constructor(private _snackBar: MatSnackBar) {
     this.selectableDates.set(this.generateBusinessDays(this.today, 7));
 
     effect(() => {
-      const firstAvailable = this.availableTimes().find(time => this.isTimeAvailable(time));
+      const firstAvailable = this.availableTimes().find((time:string) => this.isTimeAvailable(time));
       this.selectedTime.set(firstAvailable || null);
     });
   }
@@ -45,9 +46,11 @@ export class SchedulingCardComponent {
 
   bookTour() {
     if (this.selectedTime()) {
-      alert(`Tour booked for ${this.selectedDate()} at ${this.selectedTime()} at ${new Date().toLocaleTimeString()}`);
-      console.log(`Tour booked for ${this.selectedDate()} at ${this.selectedTime()} at ${new Date().toLocaleTimeString()}`);
-      this.bookedTimes.update(times => [...times, this.selectedTime()!]);
+      const message = `Tour booked for ${this.selectedDate().toLocaleDateString()} at ${this.selectedTime()}`;
+      this._snackBar.open(message, 'Dismiss', {
+        duration: 3000,
+      });
+      this.bookedTimes.update((times:string[]) => [...times, this.selectedTime()!]);
       this.selectedTime.set(null);
     }
   }
@@ -59,7 +62,7 @@ export class SchedulingCardComponent {
     nextDay.setDate(nextDay.getDate() + 1);
 
     const moreDates = this.generateBusinessDays(nextDay, 3); // Increased from 7 to 14
-    this.selectableDates.update(dates => [...dates, ...moreDates]);
+    this.selectableDates.update((dates:Date[]) => [...dates, ...moreDates]);
   }
 
   private generateBusinessDays(startDate: Date, count: number): Date[] {

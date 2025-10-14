@@ -1,0 +1,26 @@
+@use './variables.scss' as global;
+
+/* Mixin for button styling */
+@mixin button-style {
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #191919;
+    background-color: global.$disabled-color;
+    border: 1px solid #b0bec5;
+    min-width: 120px;
+  }
+  
+  /* Outlined Icon Global Styles */
+  @mixin outlined-icon($size: 24px, $color: inherit, $weight: 400) {
+    font-family: 'Material Icons Outlined' !important;
+    font-weight: $weight;
+    font-size: $size;
+    color: $color;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
